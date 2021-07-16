@@ -21,7 +21,7 @@
 def GetPointCloud():
     """! This function will obtain 3D point cloud data to process into the
     algorithm either already stored data or captured through connected hardware.
-            
+    
     @return:    Point cloud object following.
     
     @note:  This process must interface the GUI and the main program. Must be
@@ -105,18 +105,77 @@ def RotationCsm(ptCloud_in,thetax,thetay,thetaz,Px,Py,Pz):
 
 def PlaneDetection(ptCloud,maxDistance,maxAngularDistance):
     """
+    Fit a plane to a 3-D point cloud, based on the PCFITPLANE (matlab) function.
+
+    @param ptCloud:             Point cloud object
+                                @type Point cloud object.
+    @param maxDistance:         Euclidian distance threshold allowed from inliers points to the
+                                found plane.
+                                @type Escalar euclidian distance [?]
+    @param referenceVector:     Vector reference used as orientation constraint to fit the plane.
+                                @type 1x3 vector [-]
+    @param maxAngularDistance:  Maximum allowed absolute angular distance in degrees between the
+                                normal vector of plane and the reference orientation. (5 degrees by default)
+                                @type Escalar [degrees]
+
+    @return: plane              Point cloud containing the detected plane.
+    @return: model              Descriptor of plane model object.
+    @return: remainPtCloud      Point cloud outside the detected plane.
+    @return: inliersIdx         Indexes for inliers points.
+    @return: outliersIdx        Indexes for outliers points.
+    """
+
+    [plane, model, remainPtCloud, inliersIdx, outliersIdx] = [0, 0, 0, 0, 0]
+    return [plane, model, remainPtCloud, inliersIdx, outliersIdx]
+
+
+def TransformRefFloorPlane(): # TODO
+    """
+    Obtener transformacion con referencia al plano tierra
+    alphaG= atan2(-nG(1,2), nG(1,3));
+    betaG= asin(nG(1,1));
+    h=model_ptCloudG.Parameters(1,4);
+    ptCloudG_alg_h=Rotacion_csm(ptCloudG,alphaG,betaG,0,0,0,0);
+    ptCloudG_alg=Rotacion_csm(ptCloudG_alg_h,0,0,0,0,0,h);
+    @return:
+    """
+
+
+def DeleteFloorplane(): # TODO
+    """
+    % Eliminar plano tierra
+    ptCloudG_Boxes_h=Rotacion_csm(remainPtCloudG,alphaG,betaG,0,0,0,0);
+    ptCloudG_Boxes=Rotacion_csm(ptCloudG_Boxes_h,0,0,0,0,0,h);
+    @return:
+    """
+
+
+def RemoveInvalidPoints(): # TODO
+    """
+    % Detecci??n de objetos candidatos a ser cajas
+    [ptCloud_objects,ind_remv1]= removeInvalidPoints(ptCloudG_Boxes_dn);
+    ind_boxes_dn_rv=ind_boxes_dn(ind_remv1');
+    """
+
+
+def ClusterBoxesWc(ptCloud,bandwidth): #TODO
+    """
+    Based on MeanShiftCluster function to detect patterns
+    @param ptCloud:     Point cloud object
+    @param bandwidth:   Bandwith parameter. @type Scalar
     
-    @param ptCloud:
-    @param maxDistance:
-    @param maxAngularDistance:
-    @return: plane
-    @return: model,remainPtCloud,inlierIndices,outlierIndices
+    @return:    ptCloudsOut
+    @return:    ptCloudsOut_plane
+    @return:    clustMembsCell
+    @return:    clustPlaneCell
+    
     """
     
-    pass
+    [ptCloudsOut, ptCloudsOut_plane, clustMembsCell, clustPlaneCell] = [0, 0, 0, 0]
+    return [ptCloudsOut, ptCloudsOut_plane, clustMembsCell, clustPlaneCell]
 
 
-def PositionalAdjustment():
+def PositionalAdjustment(): #TODO
     """
     :param fg:
     :param gh:
