@@ -73,17 +73,17 @@ def RotationCsm(ptCloud_in,thetax,thetay,thetaz,Px,Py,Pz):
         """
         Abstraction of homogeneus matrix for X rotation.
         @param angle: Angle of rotation along x-axis.
-        
+
         @return: rotational Matrix for the given the angle.
-        
+
         @note:  IT may be implemented more properly in Numpy pkg or similars.
         """
         pass
 
     def rotY(angle):
         """
-        Abstraction of homogeneus matrix for X rotation.
-        @param angle: Angle of rotation along x-axis.
+        Abstraction of homogeneus matrix for Y rotation.
+        @param angle: Angle of rotation along y-axis.
 
         @return: rotational Matrix for the given the angle.
 
@@ -93,8 +93,8 @@ def RotationCsm(ptCloud_in,thetax,thetay,thetaz,Px,Py,Pz):
 
     def rotZ(angle):
         """
-        Abstraction of homogeneus matrix for X rotation.
-        @param angle: Angle of rotation along x-axis.
+        Abstraction of homogeneus matrix for Z rotation.
+        @param angle: Angle of rotation along z-axis.
 
         @return: rotational Matrix for the given the angle.
 
