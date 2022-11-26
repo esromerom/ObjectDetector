@@ -1,3 +1,12 @@
+/**
+ * @file       objectDetector.c
+ * @copyright  Semillero SIRA 2022 -
+ *             Universidad de la Salle, Bogota, Colombia
+ * 
+ * @brief      Main file of the object detector algorithm. Based on matlab implementation of
+ *             reported algorithm in https://link.springer.com/chapter/10.1007/978-3-030-00353-1_40
+ */
+
 #include <iostream>
 #include <memory>
 
@@ -11,61 +20,7 @@
 #include "open3d/utility/Logging.h"
 #include "open3d/utility/ProgressReporters.h"
 
-/**
- * @brief 
- * 
- * @return int 
- */
-int InputPointCloud(const std::string & filepath,
-                    open3d::geometry::PointCloud & pointcloud) {
-    using namespace open3d;
-    using namespace io;
-
-    bool print_progress;
-    auto params = ReadPointCloudOption::ReadPointCloudOption();
-    std::string format = params.format;
-
-    if (format == "auto") {
-        format = utility::filesystem::GetFileExtensionInLowerCase(filepath);
-    }
-    
-
-    /* Default read params. */
-    params.format = format;
-    params.remove_nan_points = true;
-    params.remove_infinite_points = true;
-    utility::ConsoleProgressUpdater progress_updater(
-            std::string("Reading ") + utility::ToUpper(format) +
-                    " file: " + filepath,
-            print_progress);
-    params.update_progress = progress_updater;
-
-    if (io::ReadPointCloud(filepath, pointcloud, params)) {
-        utility::LogInfo("Successfully read {}", filepath);
-
-        /* re-write pcd on 2 diff formats.
-        geometry::PointCloud pointcloud_copy;
-        pointcloud_copy.CloneFrom(pointcloud);
-
-        if (io::WritePointCloud(filename_xyz, pointcloud)) {
-            utility::LogInfo("Successfully wrote {}",
-        filename_xyz.c_str()); } else { utility::LogError("Failed to write
-        {}", filename_xyz);
-        }
-
-        if (io::WritePointCloud(filename_ply, pointcloud_copy)) {
-            utility::LogInfo("Successfully wrote {}",
-        filename_ply); } else { utility::LogError("Failed to write
-        {}", filename_ply);
-        }
-         */
-        return 1;
-    } else {
-        utility::LogWarning("Failed to read {}", filepath);
-        return 0;
-    }
-}
-
+#include "inputCapture.h"
 
 void PrintPointCloud(const open3d::geometry::PointCloud &pointcloud) {
     using namespace open3d;
@@ -122,20 +77,20 @@ int main(int argc, char *argv[]) {
     // std::string filepath = "../captures/test_filter_pc_inliers.pcd";    
 
     /* 1. Test PCD functions */
-    geometry::PointCloud pointcloud;
-    PrintPointCloud(pointcloud);
+    // geometry::PointCloud pointcloud;
+    // PrintPointCloud(pointcloud);
 
-    pointcloud.points_.push_back(Eigen::Vector3d(0.0, 0.0, 0.0));
-    pointcloud.points_.push_back(Eigen::Vector3d(1.0, 0.0, 0.0));
-    pointcloud.points_.push_back(Eigen::Vector3d(0.0, 1.0, 0.0));
-    pointcloud.points_.push_back(Eigen::Vector3d(0.0, 0.0, 1.0));
+    // pointcloud.points_.push_back(Eigen::Vector3d(0.0, 0.0, 0.0));
+    // pointcloud.points_.push_back(Eigen::Vector3d(1.0, 0.0, 0.0));
+    // pointcloud.points_.push_back(Eigen::Vector3d(0.0, 1.0, 0.0));
+    // pointcloud.points_.push_back(Eigen::Vector3d(0.0, 0.0, 1.0));
 
     // visualization::Visualizer visualizer;
     // visualizer.DestroyVisualizerWindow();
-    PrintPointCloud(pointcloud);
+    // PrintPointCloud(pointcloud);
 
     geometry::PointCloud capturedPcd;
-    InputPointCloud((const std::string &) filepath, capturedPcd);
+    (void)InputPointCloud((const std::string &) filepath, capturedPcd);
     // {
     //     utility::ScopeTimer timer("FPFH estimation with Radius 0.25");
     //     // for (int i = 0; i < 20; i++) {
@@ -157,21 +112,21 @@ int main(int argc, char *argv[]) {
     std::shared_ptr<geometry::PointCloud> pointCloud_ptr(
             new geometry::PointCloud);
     *pointCloud_ptr = capturedPcd;
-    // visualization::DrawGeometries({pointCloud_ptr});
+    visualization::DrawGeometries({pointCloud_ptr});
     
     // auto sphere = geometry::TriangleMesh::CreateSphere(1.0);
     // sphere->ComputeVertexNormals();
     // sphere->PaintUniformColor({0.0, 1.0, 0.0});
-    visualization::DrawGeometries({downpcd});
+    // visualization::DrawGeometries({downpcd});
     
     // /** test */
     // visualization::Visualizer visualizer;
+    
     // visualizer.DestroyVisualizerWindow();
     // // visualization::DrawGeometries({capturedPcd});
     // auto downpcd = capturedPcd.VoxelDownSample(0.05);
 
     // visualization::DrawGeometries({downpcd});
-    // // visualizer.CreateVisualizerWindow("Open3D", 1600, 900);
 
     // std::shared_ptr<geometry::PointCloud> pointCloud_ptr(
     //         new geometry::PointCloud);
@@ -185,6 +140,7 @@ int main(int argc, char *argv[]) {
     // visualizer.AddGeometry(pointCloud_ptr);
     // visualizer.AddGeometry(downpcd);
     // visualizer.CreateVisualizerWindow("Open3D", 1600, 900);
+    // visualizer.CreateVisualizerWindow("Open3D", 1600, 900, 50 , 50, true);
     // visualizer.Run();
 
     // // while()
