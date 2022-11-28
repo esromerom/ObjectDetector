@@ -1,29 +1,57 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "g++ - Build and debug active file",
+        "name": "Debug",
+        "type": "cppdbg",
+        "request": "launch",
+        // "program": "${inputs:OutDir}/${file}",
+        "program": "${workspaceFolder}/${fileBasenameNoExtension}",
+        "cwd": "${workspaceFolder}",
+        "args":[],
+        "internalConsoleOptions": "openOnFirstSessionStart",
+        "stopAtEntry": false,
+        "environment": [],
+        "externalConsole": false, // Uses internal console in VSCode
+        "linux": {
+            "name": "dbg Capture Realsense",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": false,
+            "program": "${workspaceFolder}/${fileBasenameNoExtension}",
             "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "C/C++: g++ build active file",
             "miDebuggerPath": "/usr/bin/gdb"
+          },
+        "osx": {
+            "name": "dbg Capture Realsense",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/${fileBasenameNoExtension}",
+            "MIMode": "lldb"
+          },
+        "windows": {
+            "name": "dbg Capture Realsense",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/${fileBasenameNoExtension}",
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:\\MinGw\\bin\\gdb.exe"
+          },
+        "setupCommands": [
+            {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+            }
+        ],
+        "preLaunchTask": "Capture RealSense"
         }
-    ]
+    ],
+    "inputs": [
+        {
+            "id": "OutDir",
+            "type": "command",
+            "command": "cpptools.activeConfigCustomVariable",
+            "args": "OutDir"
+        },
+    ],
 }
