@@ -1,0 +1,57 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+        "name": "Debug",
+        "type": "cppdbg",
+        "request": "launch",
+        // "program": "${inputs:OutDir}/${file}",
+        "program": "${workspaceFolder}/${fileBasenameNoExtension}",
+        "cwd": "${workspaceFolder}",
+        "args":[],
+        "internalConsoleOptions": "openOnFirstSessionStart",
+        "stopAtEntry": false,
+        "environment": [],
+        "externalConsole": false, // Uses internal console in VSCode
+        "linux": {
+            "name": "dbg Capture Realsense",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/${fileBasenameNoExtension}",
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb"
+          },
+        "osx": {
+            "name": "dbg Capture Realsense",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/${fileBasenameNoExtension}",
+            "MIMode": "lldb"
+          },
+        "windows": {
+            "name": "dbg Capture Realsense",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/${fileBasenameNoExtension}",
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:\\MinGw\\bin\\gdb.exe"
+          },
+        "setupCommands": [
+            {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+            }
+        ],
+        "preLaunchTask": "Capture RealSense"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "OutDir",
+            "type": "command",
+            "command": "cpptools.activeConfigCustomVariable",
+            "args": "OutDir"
+        },
+    ],
+}
