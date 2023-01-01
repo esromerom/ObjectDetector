@@ -73,83 +73,22 @@ int main(int argc, char *argv[]) {
     }
     
     // std::string filepath = "../captures/test_point_cloud.ply";
-    std::string filepath = "../captures/teapotOut.ply";
+    std::string filepath = "../captures/capture1.ply";
     // std::string filepath = "../captures/test_filter_pc_inliers.pcd";    
 
-    /* 1. Test PCD functions */
-    // geometry::PointCloud pointcloud;
-    // PrintPointCloud(pointcloud);
-
-    // pointcloud.points_.push_back(Eigen::Vector3d(0.0, 0.0, 0.0));
-    // pointcloud.points_.push_back(Eigen::Vector3d(1.0, 0.0, 0.0));
-    // pointcloud.points_.push_back(Eigen::Vector3d(0.0, 1.0, 0.0));
-    // pointcloud.points_.push_back(Eigen::Vector3d(0.0, 0.0, 1.0));
-
-    // visualization::Visualizer visualizer;
-    // visualizer.DestroyVisualizerWindow();
-    // PrintPointCloud(pointcloud);
-
+    /* Import stored capture */
     geometry::PointCloud capturedPcd;
     (void)InputPointCloud((const std::string &) filepath, capturedPcd);
-    // {
-    //     utility::ScopeTimer timer("FPFH estimation with Radius 0.25");
-    //     // for (int i = 0; i < 20; i++) {
-    //     pipelines::registration::ComputeFPFHFeature(
-    //             *capturedPcd, geometry::KDTreeSearchParamRadius(0.25));
-    //     //}
-    // }
 
-    // {
-    //     utility::ScopeTimer timer("Normal estimation with KNN20");
-    //     for (int i = 0; i < 20; i++) {
-    //         capturedPcd->EstimateNormals(open3d::geometry::KDTreeSearchParamKNN(20));
-    //     }
-    // }
-    // std::cout << capturedPcd->normals_[0] << std::endl;
-    // std::cout << capturedPcd->normals_[10] << std::endl;
-
-    auto downpcd = capturedPcd.VoxelDownSample(0.05);
     std::shared_ptr<geometry::PointCloud> pointCloud_ptr(
             new geometry::PointCloud);
     *pointCloud_ptr = capturedPcd;
     visualization::DrawGeometries({pointCloud_ptr});
-    
-    // auto sphere = geometry::TriangleMesh::CreateSphere(1.0);
-    // sphere->ComputeVertexNormals();
-    // sphere->PaintUniformColor({0.0, 1.0, 0.0});
-    // visualization::DrawGeometries({downpcd});
-    
-    // /** test */
-    // visualization::Visualizer visualizer;
-    
-    // visualizer.DestroyVisualizerWindow();
-    // // visualization::DrawGeometries({capturedPcd});
-    // auto downpcd = capturedPcd.VoxelDownSample(0.05);
+    system("pause");
 
-    // visualization::DrawGeometries({downpcd});
-
-    // std::shared_ptr<geometry::PointCloud> pointCloud_ptr(
-    //         new geometry::PointCloud);
-    // *pointCloud_ptr = capturedPcd;
-    // pointcloud_ptr->NormalizeNormals();
-
-    // std::shared_ptr<geometry::PointCloud> modPointCloud_ptr(
-    //         new geometry::PointCloud);
-    // modPointCloud_ptr = downpcd;
-
-    // visualizer.AddGeometry(pointCloud_ptr);
-    // visualizer.AddGeometry(downpcd);
-    // visualizer.CreateVisualizerWindow("Open3D", 1600, 900);
-    // visualizer.CreateVisualizerWindow("Open3D", 1600, 900, 50 , 50, true);
-    // visualizer.Run();
-
-    // // while()
-    // // {
-
-    // // }
-    // system("pause");
-    // visualizer.DestroyVisualizerWindow();
+    /* Reduce the amount of data */
+    auto downpcd = capturedPcd.VoxelDownSample(0.05);
+    visualization::DrawGeometries({downpcd});
 
     return 0;
-
 }
