@@ -64,6 +64,9 @@ void PrintPointCloud(const open3d::geometry::PointCloud &pointcloud) {
 int main(int argc, char *argv[]) {
     using namespace open3d;
 
+    const double maxDistance = 0.025;  /* 0.019 */
+    const int maxAngularDistance = 45;
+
     if (argc == 2) {
         std::string option(argv[1]);
         if (option == "--skip-for-unit-test") {
@@ -71,10 +74,8 @@ int main(int argc, char *argv[]) {
             return 0;
         }
     }
-    
-    // std::string filepath = "../captures/test_point_cloud.ply";
-    std::string filepath = "../captures/capture1.ply";
-    // std::string filepath = "../captures/test_filter_pc_inliers.pcd";    
+
+    std::string filepath = "../captures/capture1.ply"; 
 
     /* Import stored capture */
     geometry::PointCloud capturedPcd;
@@ -82,13 +83,25 @@ int main(int argc, char *argv[]) {
 
     std::shared_ptr<geometry::PointCloud> pointCloud_ptr(
             new geometry::PointCloud);
+
     *pointCloud_ptr = capturedPcd;
+
     visualization::DrawGeometries({pointCloud_ptr});
     system("pause");
 
     /* Reduce the amount of data */
     auto downpcd = capturedPcd.VoxelDownSample(0.05);
     visualization::DrawGeometries({downpcd});
+
+    Eigen::Vector4d plane_model;
+    std::vector<size_t> inliers;
+
+    std::tie(plane_model, inliers) = capturedPcd.SegmentPlane(maxDistance,
+                                                                3,
+                                                              1000);
+    // std::shared_ptr<geometry::PointCloud> pcdInlier = capturedPcd.SelectByIndex(inliers);
+    auto pcdInlier = capturedPcd.SelectByIndex(inliers);
+    visualization::DrawGeometries({pcdInlier});
 
     return 0;
 }
