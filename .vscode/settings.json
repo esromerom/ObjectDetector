@@ -14,8 +14,7 @@
         "core": "cpp",
         "stdvector": "cpp",
         "geometry": "cpp",
-        "vector": "cpp",
-        "xstring": "cpp"
+        "vector": "cpp"
     },
     "C_Cpp.intelliSenseEngineFallback": "Enabled"
 }

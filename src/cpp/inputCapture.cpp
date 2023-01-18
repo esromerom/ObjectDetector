@@ -44,7 +44,24 @@ extern int InputPointCloud(const std::string & filepath,
 
     if (io::ReadPointCloud(filepath, pointcloud, params)) {
         utility::LogInfo("Successfully read {}", filepath);
-        return 0;
+
+        /* re-write pcd on 2 diff formats.
+        geometry::PointCloud pointcloud_copy;
+        pointcloud_copy.CloneFrom(pointcloud);
+
+        if (io::WritePointCloud(filename_xyz, pointcloud)) {
+            utility::LogInfo("Successfully wrote {}",
+        filename_xyz.c_str()); } else { utility::LogError("Failed to write
+        {}", filename_xyz);
+        }
+
+        if (io::WritePointCloud(filename_ply, pointcloud_copy)) {
+            utility::LogInfo("Successfully wrote {}",
+        filename_ply); } else { utility::LogError("Failed to write
+        {}", filename_ply);
+        }
+         */
+        return 1;
     } else {
         utility::LogWarning("Failed to read {}", filepath);
         return 0;

@@ -53,7 +53,6 @@ void PrintPointCloud(const open3d::geometry::PointCloud &pointcloud) {
     utility::LogInfo("End of the list.");
 }
 
-/* TODO make void() function to Filter out floor */
 
 /**
  * @brief Called to execute a full calculation chain from a point cloud.
@@ -65,7 +64,7 @@ void PrintPointCloud(const open3d::geometry::PointCloud &pointcloud) {
 int main(int argc, char *argv[]) {
     using namespace open3d;
 
-    const double maxDistance = 0.019;  /* 0.019 */
+    const double maxDistance = 0.025;  /* 0.019 */
     const int maxAngularDistance = 45;
 
     if (argc == 2) {
@@ -87,20 +86,21 @@ int main(int argc, char *argv[]) {
 
     *pointCloud_ptr = capturedPcd;
 
-    // visualization::DrawGeometries({pointCloud_ptr});
+    visualization::DrawGeometries({pointCloud_ptr});
+    system("pause");
 
     /* Reduce the amount of data */
     auto downpcd = capturedPcd.VoxelDownSample(0.05);
-    // visualization::DrawGeometries({downpcd});
+    visualization::DrawGeometries({downpcd});
 
     Eigen::Vector4d plane_model;
     std::vector<size_t> inliers;
 
     std::tie(plane_model, inliers) = capturedPcd.SegmentPlane(maxDistance,
-                                                              3,
+                                                                3,
                                                               1000);
     // std::shared_ptr<geometry::PointCloud> pcdInlier = capturedPcd.SelectByIndex(inliers);
-    auto pcdInlier = capturedPcd.SelectByIndex(inliers, true);
+    auto pcdInlier = capturedPcd.SelectByIndex(inliers);
     visualization::DrawGeometries({pcdInlier});
 
     return 0;

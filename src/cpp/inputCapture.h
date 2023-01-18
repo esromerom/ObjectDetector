@@ -13,8 +13,8 @@
  * @brief   Imports a fixed point cloud.
  * @todo    Use args to check or ask for a file or capture device.
  * 
- * @param[in]   filepath    Path to the file to import.
- * @param[out]  pointcloud  Pointer to store the imported point cloud.
+ * @param filepath 
+ * @param pointcloud 
  * @return int 
  */
 extern int InputPointCloud(const std::string & filepath,
