@@ -1,0 +1,14 @@
+{
+	"depth_diff_max" : 0.070000000000000007,
+	"depth_max" : 3.0,
+	"global_registration" : "ransac",
+	"icp_method" : "color",
+	"name" : "file.bag",
+	"path_dataset" : "/home/esromerom/Documents/BoxDetectorCpp/output",
+	"path_intrinsic" : "/home/esromerom/Documents/BoxDetectorCpp/output/intrinsic.json",
+	"preference_loop_closure_odometry" : 0.10000000000000001,
+	"preference_loop_closure_registration" : 5.0,
+	"python_multi_threading" : true,
+	"tsdf_cubic_size" : 3.0,
+	"voxel_size" : 0.050000000000000003
+}
