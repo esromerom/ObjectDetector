@@ -6,6 +6,13 @@
  * @brief      Class definition file to handle the settings that govern the program
  ******************************************************************************/
 
+#ifndef CONFIG_HANDLER_H_INCLUDED
+#define CONFIG_HANDLER_H_INCLUDED
+
+/******************************************************************************
+ * Included Files
+ ******************************************************************************/
+
 #include <string>
 
 /**
@@ -18,6 +25,9 @@ struct NoiseFilterConfig {
     double std_dev_mul_thresh;
 };
 
+/******************************************************************************
+ * Public Classes
+ ******************************************************************************/
 /**
  * @class   ConfigHandler
  * @brief   Handles the configuration object. I may allow to have several instances of
@@ -37,3 +47,5 @@ private:
     nlohmann::json json_;
     NoiseFilterConfig noise_filter_config_;
 };
+
+#endif /* CONFIG_HANDLER_H_INCLUDED */
