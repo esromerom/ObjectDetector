@@ -11,8 +11,7 @@
 /******************************************************************************
  * Included Files
  ******************************************************************************/
-
-#include "jsonHandler.h"
+#include "json_handler.h"
 
 /******************************************************************************
  * Constants and Macros
@@ -29,6 +28,22 @@
 /******************************************************************************
  * Global Variables Declarations
  ******************************************************************************/
+/* Constructor */
+JsonHandler::JsonHandler(const std::string& filepath) : filepath_(filepath) {}
+
+
+nlohmann::json JsonHandler::readJson() {
+    std::ifstream file(filepath_);
+    nlohmann::json json;
+    file >> json;
+    return json;
+}
+
+
+void JsonHandler::writeJson(const nlohmann::json& json) {
+    std::ofstream file(filepath_);
+    file << json.dump(4);
+}
 
 /******************************************************************************
  * Module Global Variables

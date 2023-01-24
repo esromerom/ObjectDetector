@@ -30,23 +30,17 @@
  ******************************************************************************/
 class JsonHandler {
 public:
-    void loadJson(const std::string& file_name) {
-        std::ifstream file(file_name);
-        if (file.is_open()) {
-            file >> json_;
-        } else {
-            throw std::runtime_error("Failed to open file: " + file_name);
-        }
-    }
-    nlohmann::json getJson() const {
-        return json_;
-    }
-    void setJson(const nlohmann::json& json) {
-        json_ = json;
-    }
+    /* Constructor */
+    JsonHandler(const std::string& filepath);
+
+    /* Read JSON from file */
+    nlohmann::json readJson();
+
+    /* Write JSON to file */
+    void writeJson(const nlohmann::json& json);
 
 private:
-    nlohmann::json json_;
+    std::string filepath_;
 };
 
 /******************************************************************************
