@@ -2,12 +2,13 @@
     "version": "2.0.0",
     "tasks": [
       {
-        "label": "Build/Debug C++: g++",
+        "label": "Build main",
         "type": "shell",
         "command": "/usr/bin/g++",
-        "args": ["-g", "${file}", "-o", "${fileBasenameNoExtension}"],
+        // "args": ["-g", "${file}", "-o", "${fileBasenameNoExtension}"],
+        "args": [],
         "options": {
-          "cwd": "${workspaceFolder}"
+          "cwd": "${workspaceFolder}/build"
         },
         "problemMatcher": ["$gcc"],
         "group": {

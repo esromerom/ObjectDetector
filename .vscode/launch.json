@@ -2,17 +2,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-        "name": "Debug",
+        "name": "Debug main",
         "type": "cppdbg",
         "request": "launch",
-        // "program": "${inputs:OutDir}/${file}",
-        "program": "${workspaceFolder}/${fileBasenameNoExtension}",
-        "cwd": "${workspaceFolder}",
+        "program": "${workspaceFolder}/build/Release/${fileBasenameNoExtension}.exe${extensionInstallFolder:publisher.extension}",
         "args":[],
-        "internalConsoleOptions": "openOnFirstSessionStart",
         "stopAtEntry": false,
+        "cwd": "${workspaceFolder}/build",
         "environment": [],
         "externalConsole": false, // Uses internal console in VSCode
+        "internalConsoleOptions": "openOnFirstSessionStart",
         "linux": {
             "name": "dbg Capture Realsense",
             "type": "cppdbg",
@@ -43,7 +42,7 @@
             "ignoreFailures": true
             }
         ],
-        "preLaunchTask": "Capture RealSense"
+        "preLaunchTask": "Build main"
         }
     ],
     "inputs": [
