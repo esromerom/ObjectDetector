@@ -13,21 +13,32 @@ else()
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 endif()
 
+# Add Nlohmann JSON library
+# Typically you don't care so much for a third party library's tests to be
+# run from your own project's code.
+set(JSON_BuildTests OFF CACHE INTERNAL "")
+
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/json_handler/nlohmann_json)
+
 # Find installed Open3D, which exports Open3D::Open3D
 find_package(Open3D REQUIRED)
 add_executable(${PROJECT_NAME})
 
 set(SOURCE
    ${SOURCE}
+   ${CMAKE_CURRENT_SOURCE_DIR}/json_handler/json_handler.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/objectDetector.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/inputCapture.cpp)
 
 set(HEADER $(HEADER)
-    ${CMAKE_SOURCE_DIR}/ )
+    ${CMAKE_CURRENT_SOURCE_DIR}/json_handler/
+    ${CMAKE_CURRENT_SOURCE_DIR}/json_handler/nlohmann_json/
+    ${CMAKE_CURRENT_SOURCE_DIR}/ )
 
 target_sources(${PROJECT_NAME}  PRIVATE ${SOURCE})
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR})
-target_link_libraries(${PROJECT_NAME}  PRIVATE Open3D::Open3D)
+target_link_libraries(${PROJECT_NAME} PRIVATE Open3D::Open3D)
+target_link_libraries(${PROJECT_NAME} PRIVATE nlohmann_json::nlohmann_json)
 
 # On Windows if BUILD_SHARED_LIBS is enabled, copy .dll files to the executable directory
 if(WIN32)

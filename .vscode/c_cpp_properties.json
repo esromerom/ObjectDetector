@@ -50,7 +50,43 @@
             "compilerPath": "/usr/bin/gcc"
         },
         {
-            "name": "Windows"
+            "name": "Linux",
+            "includePath": [
+                // "${default}",
+                // "/home/esromerom/Open3D/cpp/open3d",
+                // "/home/esromerom/Open3D/cpp/open3d/utility",
+                // "/home/esromerom/Open3D/cpp/open3d/io",
+                // "/home/esromerom/Open3D/cpp/open3d/camera",
+                // "/home/esromerom/Open3D/cpp/open3d/core",
+                // "/home/esromerom/Open3D/cpp/"
+                // "/usr/local/include/open3d",
+                "/usr/include/eigen3/Eigen/"
+            ],
+            "defines": [
+                "${default}"
+            ],
+            "macFrameworkPath": [
+                "${default}"
+            ],
+            "forcedInclude": [
+                "eigen3",
+                "/usr/local/include/open3d/3rdparty/GLFW/glfw3.h"
+            ],
+            "compileCommands": "${default}",
+            "customConfigurationVariables": {
+                "OutDir": "${workspaceFolder}/build/debug"
+            },
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${default}",
+                "path": [
+                    "${default}"
+                ]
+            },
+            "intelliSenseMode": "linux-gcc-x64",
+            "cStandard": "${default}",
+            "cppStandard": "${default}",
+            "compilerPath": "/usr/bin/gcc"
         }
     ],
     "version": 4

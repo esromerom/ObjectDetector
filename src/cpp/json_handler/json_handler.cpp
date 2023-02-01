@@ -11,12 +11,19 @@
 /******************************************************************************
  * Included Files
  ******************************************************************************/
-#include "json_handler.h"
+#include <stdio.h>
+#include <string.h>
+#include <fstream>
 
+#include "json_handler.h"
+#include "nlohmann/json.hpp"
+
+using json = nlohmann::json;
 /******************************************************************************
  * Constants and Macros
  ******************************************************************************/
-
+const std::string & defaultJsonFile = "template.json";
+const std::string & defaultJsonPath = "./";
 /******************************************************************************
  * Types declarations
  ******************************************************************************/
@@ -29,20 +36,35 @@
  * Global Variables Declarations
  ******************************************************************************/
 /* Constructor */
-JsonHandler::JsonHandler(const std::string& filepath) : filepath_(filepath) {}
+JsonHandler::JsonHandler(const std::string & filepath) : filepath_(filepath) {
+    json_ = json::object();
+}
+ 
 
-
-nlohmann::json JsonHandler::readJson() {
+void JsonHandler::LoadJson() {
     std::ifstream file(filepath_);
-    nlohmann::json json;
-    file >> json;
-    return json;
+
+    if (file.is_open()) {
+        file >> json_;
+    } else {
+        throw std::runtime_error("Failed to open file: " + filepath_);
+    }
+    std::ifstream ifs;
 }
 
+json JsonHandler::GetJson() const {
+        return json_;
+    }
 
-void JsonHandler::writeJson(const nlohmann::json& json) {
+void JsonHandler::SetJson(const json& jsonOb) {
+        json_.clear();
+        json_ = jsonOb;
+    }
+
+void JsonHandler::WriteOnJson(const json& jsonOb) {
+    SetJson(jsonOb);
     std::ofstream file(filepath_);
-    file << json.dump(4);
+    file << json_.dump(4);
 }
 
 /******************************************************************************
@@ -52,31 +74,26 @@ void JsonHandler::writeJson(const nlohmann::json& json) {
 /******************************************************************************
  * Class Definition
  ******************************************************************************/
-class JsonHandler {
-public:
-    void loadJson(const std::string& file_name) {
-        std::ifstream file(file_name);
-        if (file.is_open()) {
-            file >> json_;
-        } else {
-            throw std::runtime_error("Failed to open file: " + file_name);
-        }
-    }
-    nlohmann::json getJson() const {
-        return json_;
-    }
-    void setJson(const nlohmann::json& json) {
-        json_ = json;
-    }
-
-private:
-    nlohmann::json json_;
-};
 
 /******************************************************************************
  * Functions Definitions
  ******************************************************************************/
+void createTemplateJson(const std::string& file_name) {
+    json jsonOb;
 
+    /* Populate the JSON object with template data */
+    jsonOb["param1"] = 0.0;
+    jsonOb["param2"] = "string value";
+    jsonOb["param3"] = false;
+
+    /* Write the JSON object to a file */
+    std::ofstream file(file_name);
+    if (file.is_open()) {
+        file << jsonOb;
+    } else {
+        throw std::runtime_error("Failed to open file: " + file_name);
+    }
+}
 /******************************************************************************
  * Private functions definitions
  ******************************************************************************/

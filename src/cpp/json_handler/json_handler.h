@@ -12,7 +12,11 @@
 /******************************************************************************
  * Included Files
  ******************************************************************************/
+#include <string.h>
 
+#include "nlohmann/json.hpp"
+
+using json = nlohmann::json;
 /******************************************************************************
  * Constants and Macros
  ******************************************************************************/
@@ -30,21 +34,49 @@
  ******************************************************************************/
 class JsonHandler {
 public:
-    /* Constructor */
+    /**
+     * @brief Construct a new Json Handler object
+     * @param filepath 
+     */
     JsonHandler(const std::string& filepath);
 
-    /* Read JSON from file */
-    nlohmann::json readJson();
+    /**
+     * @brief   Obtain JSON object from the class JSON file
+     * @return  json object (Dictionary) 
+     */
+    void LoadJson();
 
-    /* Write JSON to file */
-    void writeJson(const nlohmann::json& json);
+    /**
+     * @brief   
+     * @param   json    JSON Param to add to class JSON file
+     */
+    void WriteOnJson(const json& json);
+
+    /**
+     * @brief   Get the current JSON object
+     */
+    json GetJson() const;
+
+    /**
+     * @brief   Updates the JSON object
+     * @param   json
+     * @note    It does NOT regenerate the JSON file.
+     */
+    void SetJson(const json& json);
 
 private:
     std::string filepath_;
+    json json_;
 };
 
 /******************************************************************************
  * Functions Definitions
  ******************************************************************************/
+/**
+ * @brief Create a Template Json object
+ * 
+ * @param file_name     Name of template file
+ */
+void createTemplateJson(const std::string& file_name); 
 
 #endif /* JSON_HANDLER_H_INCLUDED */
