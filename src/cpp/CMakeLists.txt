@@ -22,7 +22,12 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/json_handler/nlohmann_json)
 
 # Find installed Open3D, which exports Open3D::Open3D
 find_package(Open3D REQUIRED)
+
+set(CONF_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../config/)
+
 add_executable(${PROJECT_NAME})
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE "CONF_PATH=\"${CONF_PATH}\"")
 
 set(SOURCE
    ${SOURCE}
@@ -30,13 +35,14 @@ set(SOURCE
    ${CMAKE_CURRENT_SOURCE_DIR}/objectDetector.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/inputCapture.cpp)
 
-set(HEADER $(HEADER)
+set(HEADER 
+    ${HEADER}
     ${CMAKE_CURRENT_SOURCE_DIR}/json_handler/
     ${CMAKE_CURRENT_SOURCE_DIR}/json_handler/nlohmann_json/
     ${CMAKE_CURRENT_SOURCE_DIR}/ )
 
 target_sources(${PROJECT_NAME}  PRIVATE ${SOURCE})
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PRIVATE ${HEADER})
 target_link_libraries(${PROJECT_NAME} PRIVATE Open3D::Open3D)
 target_link_libraries(${PROJECT_NAME} PRIVATE nlohmann_json::nlohmann_json)
 

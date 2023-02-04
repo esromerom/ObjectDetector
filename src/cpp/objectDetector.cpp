@@ -20,7 +20,12 @@
 #include "open3d/utility/Logging.h"
 #include "open3d/utility/ProgressReporters.h"
 
+/* Related ObjectDetector's includes */
 #include "inputCapture.h"
+#include "json_handler/json_handler.h"
+
+const std::string defaultJsonFile = "template.json";
+const std::string defaultJsonPath = CONF_PATH;
 
 void PrintPointCloud(const open3d::geometry::PointCloud &pointcloud) {
     using namespace open3d;
@@ -63,6 +68,8 @@ void PrintPointCloud(const open3d::geometry::PointCloud &pointcloud) {
  */
 int main(int argc, char *argv[]) {
     using namespace open3d;
+    std::string pathFile = defaultJsonPath + defaultJsonFile;
+    createTemplateJson(pathFile);
 
     if (argc == 2) {
         std::string option(argv[1]);
