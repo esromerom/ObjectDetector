@@ -81,9 +81,10 @@ void createTemplateJson(const std::string& file_name) {
     json jsonOb;
 
     /* Populate the JSON object with template data */
-    jsonOb["param1"] = 0.0;
-    jsonOb["param2"] = "string value";
-    jsonOb["param3"] = false;
+    jsonOb["feature"] = "Filtre";
+    
+    jsonOb["feature"]["type"] = "voxel";
+    jsonOb["feature"]["value"] = 0.025;
 
     /* Write the JSON object to a file */
     std::ofstream file(file_name);

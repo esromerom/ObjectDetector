@@ -23,9 +23,16 @@
 /* Related ObjectDetector's includes */
 #include "inputCapture.h"
 #include "json_handler/json_handler.h"
+// #include "json_handler.h"
 
+const std::string defaultPcdPath = PCD_PATH;
+const std::string defaultConfPath = CONF_PATH;
+const std::string defaultOutputPath = OUTPUT_PATH;
+
+// const std::string filepath = "test_point_cloud.ply";
+// const std::string filepath = "test_filter_pc_inliers.pcd";
+const std::string defaultPcdFile = "capture1.ply";
 const std::string defaultJsonFile = "template.json";
-const std::string defaultJsonPath = CONF_PATH;
 
 void PrintPointCloud(const open3d::geometry::PointCloud &pointcloud) {
     using namespace open3d;
@@ -68,7 +75,7 @@ void PrintPointCloud(const open3d::geometry::PointCloud &pointcloud) {
  */
 int main(int argc, char *argv[]) {
     using namespace open3d;
-    std::string pathFile = defaultJsonPath + defaultJsonFile;
+    std::string pathFile = defaultConfPath + defaultJsonFile;
     createTemplateJson(pathFile);
 
     if (argc == 2) {
@@ -78,14 +85,12 @@ int main(int argc, char *argv[]) {
             return 0;
         }
     }
-    
-    // std::string filepath = "../captures/test_point_cloud.ply";
-    std::string filepath = "../captures/capture1.ply";
-    // std::string filepath = "../captures/test_filter_pc_inliers.pcd";    
+
+    pathFile = defaultPcdPath + defaultPcdFile;
 
     /* Import stored capture */
     geometry::PointCloud capturedPcd;
-    (void)InputPointCloud((const std::string &) filepath, capturedPcd);
+    (void)InputPointCloud((const std::string &) pathFile, capturedPcd);
 
     std::shared_ptr<geometry::PointCloud> pointCloud_ptr(
             new geometry::PointCloud);

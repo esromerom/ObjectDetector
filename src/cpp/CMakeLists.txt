@@ -23,11 +23,15 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/json_handler/nlohmann_json)
 # Find installed Open3D, which exports Open3D::Open3D
 find_package(Open3D REQUIRED)
 
-set(CONF_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../config/)
+set(CONF_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../data/config/)
+set(PCD_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../data/captures/)
+set(OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../data/output/)
 
 add_executable(${PROJECT_NAME})
 
+target_compile_definitions(${PROJECT_NAME} PRIVATE "PCD_PATH=\"${PCD_PATH}\"")
 target_compile_definitions(${PROJECT_NAME} PRIVATE "CONF_PATH=\"${CONF_PATH}\"")
+target_compile_definitions(${PROJECT_NAME} PRIVATE "OUTPUT_PATH=\"${OUTPUT_PATH}\"")
 
 set(SOURCE
    ${SOURCE}
