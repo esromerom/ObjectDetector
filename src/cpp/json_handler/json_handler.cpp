@@ -38,7 +38,7 @@ using json = nlohmann::json;
 JsonHandler::JsonHandler(const std::string & filepath) : filepath_(filepath) {
     json_ = json::object();
 }
- 
+
 
 void JsonHandler::LoadJson() {
     std::ifstream file(filepath_);
@@ -78,18 +78,19 @@ void JsonHandler::WriteOnJson(const json& jsonOb) {
  * Functions Definitions
  ******************************************************************************/
 void createTemplateJson(const std::string& file_name) {
-    json jsonOb;
+    json jTemplate;
 
-    /* Populate the JSON object with template data */
-    jsonOb["feature"] = "Filtre";
-    
-    jsonOb["feature"]["type"] = "voxel";
-    jsonOb["feature"]["value"] = 0.025;
+    jTemplate["interface"] = "false";
 
-    /* Write the JSON object to a file */
+    jTemplate["filters"] = json::array({ });
+    jTemplate["filters"].push_back({{"name", "voxel"},{"value", 0.2}});
+    jTemplate["filters"].push_back({{"name", "denoise"},{"value", 0.2}});
+
+    jTemplate["features"] = json::array({ });
+
     std::ofstream file(file_name);
     if (file.is_open()) {
-        file << jsonOb;
+        file << std::setw(2) << jTemplate;
     } else {
         throw std::runtime_error("Failed to open file: " + file_name);
     }

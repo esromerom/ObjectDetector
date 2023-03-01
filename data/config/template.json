@@ -1,0 +1,14 @@
+{
+  "features": [],
+  "filters": [
+    {
+      "name": "voxel",
+      "value": 0.2
+    },
+    {
+      "name": "denoise",
+      "value": 0.2
+    }
+  ],
+  "interface": "false"
+}
