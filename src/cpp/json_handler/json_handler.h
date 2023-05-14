@@ -3,7 +3,7 @@
  * @copyright   Semillero SIRA 2022 -
  *              Universidad de la Salle, Bogota, Colombia
  *
- * @brief       Header for the Class to handle json files. 
+ * @brief       Header for the Class to handle json files.
  ******************************************************************************/
 
 #ifndef JSON_HANDLER_H_INCLUDED
@@ -33,50 +33,59 @@ using json = nlohmann::json;
  * Class Definition
  ******************************************************************************/
 class JsonHandler {
-public:
-    /**
-     * @brief Construct a new Json Handler object
-     * @param filepath 
-     */
-    JsonHandler(const std::string& filepath);
+    public:
+        /**
+         * @brief Construct a new Json Handler object
+         * @param filepath
+         */
+        JsonHandler(const std::string& filepath);
 
-    /**
-     * @brief   Obtain JSON object from the class JSON file
-     * @return  json object (Dictionary) 
-     */
-    void LoadJson();
+        /**
+         * @brief   Obtain JSON object from the class JSON file
+         * @return  json object (Dictionary)
+         */
+        void LoadJson();
 
-    /**
-     * @brief   
-     * @param   json    JSON Param to add to class JSON file
-     */
-    void WriteOnJson(const json& json);
+        /**
+         * @brief
+         * @param   json    JSON Param to add to class JSON file
+         */
+        void WriteOnJson(const json& json);
 
-    /**
-     * @brief   Get the current JSON object
-     */
-    json GetJson() const;
+        /**
+         * @brief   Get the current JSON object
+         */
+        json GetJson();
 
-    /**
-     * @brief   Updates the JSON object
-     * @param   json
-     * @note    It does NOT regenerate the JSON file.
-     */
-    void SetJson(const json& json);
+        /**
+         * @brief   Gets back the defined filters of the object.
+         *
+         * @return  json object containning the filters definition.
+         */
+        json JsonHandler::GetFilters() const;
 
-private:
-    std::string filepath_;
-    json json_;
+        /**
+         * @brief   Updates the JSON object
+         * @param   json
+         * @note    It does NOT regenerate the JSON file.
+         */
+        void SetJson(const json& json);
+
+        std::string filepath_;
+        json json_;
+
 };
 
 /******************************************************************************
  * Functions Definitions
  ******************************************************************************/
 /**
- * @brief Create a Template Json object
- * 
- * @param file_name     Name of template file
+ * @brief   Create a Template Json object
+ *
+ * @param   file_name     Name of template file
+ *
+ * @todo    Should be created by the config_handler.c
  */
-void createTemplateJson(const std::string& file_name); 
+void createTemplateJson(const std::string& file_name);
 
 #endif /* JSON_HANDLER_H_INCLUDED */

@@ -16,7 +16,7 @@ endif()
 # Add Nlohmann JSON library
 # Typically you don't care so much for a third party library's tests to be
 # run from your own project's code.
-set(JSON_BuildTests OFF CACHE INTERNAL "")
+# set(JSON_BuildTests OFF CACHE INTERNAL "")
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/json_handler/nlohmann_json)
 
@@ -35,11 +35,11 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE "OUTPUT_PATH=\"${OUTPUT_PATH}
 
 set(SOURCE
    ${SOURCE}
+   ${CMAKE_CURRENT_SOURCE_DIR}/inputCapture.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/json_handler/json_handler.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/objectDetector.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/inputCapture.cpp)
+   ${CMAKE_CURRENT_SOURCE_DIR}/objectDetector.cpp)
 
-set(HEADER 
+set(HEADER
     ${HEADER}
     ${CMAKE_CURRENT_SOURCE_DIR}/json_handler/
     ${CMAKE_CURRENT_SOURCE_DIR}/json_handler/nlohmann_json/
