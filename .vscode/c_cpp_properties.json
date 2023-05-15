@@ -1,27 +1,12 @@
 {
     "env": {
-        "myDefaultIncludePath": [
-            // "${workspaceFolder}"
-            // "${workspaceFolder}/include",
-            // "/home/esromerom/Open3D/cpp/Open3D/",
-            // "/usr/local/include/open3d/3rdparty/"
-            // "/home/esromerom/Open3D/cpp/Eigen"
-        ],
+        "myDefaultIncludePath": [],
         "myCompilerPath": "/usr/bin/gcc"
     },
     "configurations": [
         {
             "name": "Linux",
             "includePath": [
-                // "${default}",
-                // "/home/esromerom/Open3D/cpp/open3d",
-                // "/home/esromerom/Open3D/cpp/open3d/utility",
-                // "/home/esromerom/Open3D/cpp/open3d/io",
-                // "/home/esromerom/Open3D/cpp/open3d/camera",
-                // "/home/esromerom/Open3D/cpp/open3d/core",
-                // "/home/esromerom/Open3D/cpp/"
-                // "/usr/local/include/open3d",
-                "/usr/include/eigen3/Eigen/"
             ],
             "defines": [
                 "${default}"
@@ -30,12 +15,10 @@
                 "${default}"
             ],
             "forcedInclude": [
-                "eigen3",
-                "/usr/local/include/open3d/3rdparty/GLFW/glfw3.h"
             ],
             "compileCommands": "${default}",
             "customConfigurationVariables": {
-                "OutDir": "${workspaceFolder}/build/debug"
+                "OutDir": "${workspaceFolder}/build/"
             },
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
@@ -50,7 +33,31 @@
             "compilerPath": "/usr/bin/gcc"
         },
         {
-            "name": "Windows"
+            "name": "Windows",
+            "includePath": [
+            ],
+            "defines": [
+                "${default}"
+            ],
+            "macFrameworkPath": [
+                "${default}"
+            ],
+            "forcedInclude": [],
+            "compileCommands": "${default}",
+            "customConfigurationVariables": {
+                "OutDir": "${workspaceFolder}/build/debug"
+            },
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${default}",
+                "path": [
+                    "${default}"
+                ]
+            },
+            "intelliSenseMode": "linux-gcc-x64",
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "compilerPath": "C:\\msys64\\mingw64\\bin\\gcc.exe"
         }
     ],
     "version": 4
